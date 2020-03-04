@@ -1,0 +1,1083 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <path>flightdeck.ac</path>
+
+    <animation>
+      <type>material</type>
+      <object-name>Panel</object-name>
+      <object-name>OHpanel.006</object-name>
+      <object-name>OHpanel</object-name>
+      <object-name>cockpit_1_1</object-name>
+      <condition>
+        <not>
+            <property>sim/rendering/rembrandt/enabled</property>
+        </not>
+      </condition>
+      <emission>
+        <red>0.4</red>
+        <green>0.4</green>
+        <blue>0.4</blue>
+        <factor-prop>sim/multiplay/generic/float[3]</factor-prop>
+      </emission>
+    </animation>
+
+<!-- Instruments -->
+<!-- Pilot Side -->
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/asi/asi.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.592</y-m>
+            <z-m>0.941</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/vsi.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.392</y-m>
+            <z-m>0.941</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/altimeter.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.392</y-m>
+            <z-m>1.043</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/gyro-H.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.595</y-m>
+            <z-m>1.043</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/hdg-gauge.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.495</y-m>
+            <z-m>1.043</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/rmi/rmi.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.696</y-m>
+            <z-m>1.043</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/ap/ap.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.790</y-m>
+            <z-m>1.038</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/alt-set/alt-set.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.790</y-m>
+            <z-m>1.0</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/turn.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.694</y-m>
+            <z-m>0.941</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/clock.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.796</y-m>
+            <z-m>0.941</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/pic-dev/pic-dev1.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.491</y-m>
+            <z-m>0.941</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/pic-dev/pic-dev2.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.491</y-m>
+            <z-m>0.841</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/dme/dme.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.631</y-m>
+            <z-m>0.841</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/swap-nav/swap-nav.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.740</y-m>
+            <z-m>0.832</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/agl-radar/agl-radar.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.382</y-m>
+            <z-m>0.866</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+<!-- Copilot Side -->
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/gyro-H.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.401</y-m>
+            <z-m>1.043</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/hdg-gauge.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.502</y-m>
+            <z-m>1.043</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/altimeter.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.601</y-m>
+            <z-m>1.043</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/clock.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.700</y-m>
+            <z-m>1.043</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/asi300.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.401</y-m>
+            <z-m>0.941</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/pic-dev/pic-dev1.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.502</y-m>
+            <z-m>0.941</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/vsi.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.601</y-m>
+            <z-m>0.941</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/turn.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.700</y-m>
+            <z-m>0.941</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+<!--  Center -->
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/bmep1.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.262</y-m>
+            <z-m>1.055</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/bmep2.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.161</y-m>
+            <z-m>1.055</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/bmep3.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.058</y-m>
+            <z-m>1.055</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/bmep4.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.043</y-m>
+            <z-m>1.055</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/FuelPsi1.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.145</y-m>
+            <z-m>1.055</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/FuelPsi2.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.247</y-m>
+            <z-m>1.055</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/LHman.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.262</y-m>
+            <z-m>0.959</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/RHman.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.161</y-m>
+            <z-m>0.959</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/LHFflow.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.058</y-m>
+            <z-m>0.959</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/RHFflow.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.043</y-m>
+            <z-m>0.959</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/OilPsi1.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.145</y-m>
+            <z-m>0.959</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/OilPsi2.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.247</y-m>
+            <z-m>0.959</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/LHrpm.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.262</y-m>
+            <z-m>0.862</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/RHrpm.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.161</y-m>
+            <z-m>0.862</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/flaps.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.058</y-m>
+            <z-m>0.862</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/oat.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.043</y-m>
+            <z-m>0.862</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/OilTemp1.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.145</y-m>
+            <z-m>0.862</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/OilTemp2.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.247</y-m>
+            <z-m>0.862</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/OilTemp2.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.262</y-m>
+            <z-m>0.766</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/OilTemp2.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.161</y-m>
+            <z-m>0.766</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/OilTemp2.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>-0.058</y-m>
+            <z-m>0.766</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/OilTemp2.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.043</y-m>
+            <z-m>0.766</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/OilTemp2.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.145</y-m>
+            <z-m>0.766</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/OilTemp2.xml</path>
+        <offsets>
+            <x-m>-9.750</x-m>
+            <y-m>0.247</y-m>
+            <z-m>0.766</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+<!-- -->
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/magcompass.xml</path>
+        <offsets>
+            <x-m>-10.148</x-m>
+            <y-m>0.0</y-m>
+            <z-m>1.339</z-m>
+            <pitch-deg>0.0</pitch-deg>
+        </offsets>
+    </model>
+
+<!-- OHead-->
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/comm/comm1.xml</path>
+        <offsets>
+            <x-m>-9.454</x-m>
+            <y-m>-0.315</y-m>
+            <z-m>1.740</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/nav-radio/nav1.xml</path>
+        <offsets>
+            <x-m>-9.454</x-m>
+            <y-m>-0.165</y-m>
+            <z-m>1.740</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/adf-radio/adf1.xml</path>
+        <offsets>
+            <x-m>-9.509</x-m>
+            <y-m>-0.165</y-m>
+            <z-m>1.705</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/comm/comm2.xml</path>
+        <offsets>
+            <x-m>-9.454</x-m>
+            <y-m>0.315</y-m>
+            <z-m>1.740</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/nav-radio/nav2.xml</path>
+        <offsets>
+            <x-m>-9.454</x-m>
+            <y-m>0.165</y-m>
+            <z-m>1.740</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/adf-radio/adf2.xml</path>
+        <offsets>
+            <x-m>-9.509</x-m>
+            <y-m>0.165</y-m>
+            <z-m>1.705</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/fuelgauge1.xml</path>
+        <offsets>
+            <x-m>-9.599</x-m>
+            <y-m>-0.269</y-m>
+            <z-m>1.643</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/fuelgauge2.xml</path>
+        <offsets>
+            <x-m>-9.599</x-m>
+            <y-m>-0.169</y-m>
+            <z-m>1.643</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/fuelgauge3.xml</path>
+        <offsets>
+            <x-m>-9.599</x-m>
+            <y-m>-0.069</y-m>
+            <z-m>1.643</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/fuelgauge4.xml</path>
+        <offsets>
+            <x-m>-9.599</x-m>
+            <y-m>0.031</y-m>
+            <z-m>1.643</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/fuelgauge5.xml</path>
+        <offsets>
+            <x-m>-9.695</x-m>
+            <y-m>-0.269</y-m>
+            <z-m>1.576</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/fuelgauge6.xml</path>
+        <offsets>
+            <x-m>-9.695</x-m>
+            <y-m>-0.169</y-m>
+            <z-m>1.576</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/fuelgauge7.xml</path>
+        <offsets>
+            <x-m>-9.695</x-m>
+            <y-m>-0.069</y-m>
+            <z-m>1.576</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/fuelgauge8.xml</path>
+        <offsets>
+            <x-m>-9.695</x-m>
+            <y-m>0.031</y-m>
+            <z-m>1.576</z-m>
+            <pitch-deg>55.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <model>
+      <name>flight rallye watch</name>
+      <path>Aircraft/dc6/Models/Instruments/frw/frw.xml</path>
+      <offsets>
+          <x-m>-9.727</x-m>
+          <y-m>-0.030</y-m>
+          <z-m>1.556</z-m>
+      </offsets>
+    </model>
+
+    <model>
+        <path>Aircraft/dc6/Models/Instruments/lights/epanel.xml</path>
+        <offsets>
+            <x-m>-9.819</x-m>
+            <y-m>0.0</y-m>
+            <z-m>1.481</z-m>
+            <pitch-deg>61.0</pitch-deg>
+        </offsets>
+    </model>
+
+    <animation>
+      <type>material</type>
+      <object-name>Nosewheel.steer</object-name>
+      <object-name>Elevator.trim</object-name>
+      <object-name>Rudder.trim</object-name>
+      <emission>
+          <red>0.004</red>
+          <green>0.004</green>
+          <blue>0.004</blue>
+          <factor-prop>/systems/electrical/outputs/instrument-lights-norm</factor-prop>
+      </emission>
+    </animation>
+
+    <!--  animate the trim-wheels -->
+    <animation>
+      <type>rotate</type>
+      <object-name>Nosewheel.steer</object-name>
+      <property>/controls/flight/aileron-trim</property>
+      <factor>100</factor>
+      <center>
+        <x-m>-9.659</x-m>
+        <y-m>-0.967</y-m>
+        <z-m>0.721</z-m>
+      </center>
+      <axis>
+        <x>0.28</x>
+        <y>0.72</y>
+        <z>0.0</z>
+      </axis>
+    </animation>
+
+    <animation>
+      <type>rotate</type>
+      <object-name>Elevator.trim</object-name>
+      <property>/controls/flight/elevator-trim</property>
+      <factor>-100</factor>
+      <center>
+        <x-m>-9.549</x-m>
+        <y-m>-0.259</y-m>
+        <z-m>0.595</z-m>
+      </center>
+      <axis>
+        <x>0.0</x>
+        <y>1.0</y>
+        <z>0.0</z>
+      </axis>
+    </animation>
+
+    <animation>
+      <type>rotate</type>
+      <object-name>Rudder.trim</object-name>
+      <property>/controls/flight/rudder-trim</property>
+      <factor>100</factor>
+      <center>
+        <x-m>-10.0166</x-m>
+        <y-m>0.0</y-m>
+        <z-m>1.17</z-m>
+      </center>
+      <axis>
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>1.0</z>
+      </axis>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <!-- this wheel is in the original DC6 for the nosewheel -->
+      <object-name>Nosewheel.steer</object-name>
+      <action>
+        <button>0</button>
+        <repeatable>true</repeatable>
+        <interval-sec>0.2</interval-sec>
+         <binding>
+          <command>nasal</command>
+          <script>dc6b.applyTrimWheels(0, 2)</script>
+         </binding>
+      </action>
+      <action>
+        <button>3</button>
+        <repeatable>true</repeatable>
+        <interval-sec>0.2</interval-sec>
+        <binding>
+          <command>property-adjust</command>
+          <property>/controls/flight/aileron-trim</property>
+          <step>-0.01</step>
+          <min>-1</min>
+          <max>1</max>
+          <wrap>false</wrap>
+        </binding>
+      </action>
+      <action>
+        <button>4</button>
+        <repeatable>true</repeatable>
+        <interval-sec>0.2</interval-sec>
+        <binding>
+          <command>property-adjust</command>
+          <property>/controls/flight/aileron-trim</property>
+          <step>0.01</step>
+          <min>-1</min>
+          <max>1</max>
+          <wrap>false</wrap>
+        </binding>
+      </action>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <object-name>Elevator.trim</object-name>
+      <action>
+        <button>0</button>
+        <repeatable>true</repeatable>
+        <interval-sec>0.2</interval-sec>
+         <binding>
+          <command>nasal</command>
+          <script>dc6b.applyTrimWheels(0, 0)</script>
+         </binding>
+      </action>
+      <action>
+        <button>3</button>
+        <repeatable>true</repeatable>
+        <interval-sec>0.2</interval-sec>
+        <binding>
+          <command>property-adjust</command>
+          <property>/controls/flight/elevator-trim</property>
+          <step>0.01</step>
+          <min>-1</min>
+          <max>1</max>
+          <wrap>false</wrap>
+        </binding>
+      </action>
+      <action>
+        <button>4</button>
+        <repeatable>true</repeatable>
+        <interval-sec>0.2</interval-sec>
+        <binding>
+          <command>property-adjust</command>
+          <property>/controls/flight/elevator-trim</property>
+          <step>-0.01</step>
+          <min>-1</min>
+          <max>1</max>
+          <wrap>false</wrap>
+        </binding>
+      </action>
+    </animation>
+
+    <animation>
+      <type>pick</type>
+      <object-name>Rudder.trim</object-name>
+      <action>
+        <button>0</button>
+        <repeatable>true</repeatable>
+        <interval-sec>0.2</interval-sec>
+         <binding>
+          <command>nasal</command>
+          <script>dc6b.applyTrimWheels(0, 1)</script>
+         </binding>
+      </action>
+      <action>
+        <button>3</button>
+        <repeatable>true</repeatable>
+        <interval-sec>0.2</interval-sec>
+        <binding>
+          <command>property-adjust</command>
+          <property>/controls/flight/rudder-trim</property>
+          <step>-0.01</step>
+          <min>-1</min>
+          <max>1</max>
+          <wrap>false</wrap>
+        </binding>
+      </action>
+      <action>
+        <button>4</button>
+        <repeatable>true</repeatable>
+        <interval-sec>0.2</interval-sec>
+        <binding>
+          <command>property-adjust</command>
+          <property>/controls/flight/rudder-trim</property>
+          <step>0.01</step>
+          <min>-1</min>
+          <max>1</max>
+          <wrap>false</wrap>
+        </binding>
+      </action>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>LHyoke</object-name>
+        <object-name>LHyoke.column</object-name>
+        <object-name>RHyoke</object-name>
+        <object-name>RHyoke.column</object-name>
+        <property>controls/flight/elevator</property>
+        <factor>10</factor>
+        <center>
+            <x-m>-9.541</x-m>
+            <y-m>0</y-m>
+            <z-m>0.267</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>LHyoke</object-name>
+        <property>controls/flight/aileron</property>
+        <factor>30</factor>
+        <center>
+            <x-m>-9.460</x-m>
+            <y-m>-0.570</y-m>
+            <z-m>0.840</z-m>
+        </center>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>RHyoke</object-name>
+        <property>controls/flight/aileron</property>
+        <factor>30</factor>
+        <center>
+            <x-m>-9.460</x-m>
+            <y-m>0.570</y-m>
+            <z-m>0.840</z-m>
+        </center>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>translate</type>
+        <object-name>RHpedal</object-name>
+        <property>controls/flight/rudder</property>
+        <factor>0.05</factor>
+        <center>
+            <x-m>-9.961</x-m>
+            <y-m>0</y-m>
+            <z-m>0.373</z-m>
+        </center>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>translate</type>
+        <object-name>LHpedal</object-name>
+        <property>controls/flight/rudder</property>
+        <factor>0.05</factor>
+        <center>
+            <x-m>-9.961</x-m>
+            <y-m>0</y-m>
+            <z-m>0.373</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+<!-- Prop reverser -->
+
+        <animation>
+        <type>select</type>
+        <object-name>PropRev.on</object-name>
+        <condition>
+           <property>controls/engines/reverser_allow</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>PropPitch.on</object-name>
+        <condition>
+          <or>
+            <equals>
+                <property>controls/engines/engine[0]/propeller-pitch</property>
+                <value>0</value>
+            </equals>
+            <equals>
+                <property>controls/engines/engine[0]/reverser</property>
+                <value>1</value>
+            </equals>
+          </or>
+        </condition>
+    </animation>
+
+<!--   GEAR -->
+
+        <animation>
+        <type>select</type>
+        <object-name>unsafe.on</object-name>
+        <condition>
+            <and>
+                <less-than>
+                    <property>gear/gear[0]/position-norm</property>
+                    <value>1.0</value>
+                </less-than>
+                <greater-than>
+                    <property>gear/gear[0]/position-norm</property>
+                    <value>0.0</value>
+                </greater-than>
+            </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>left.on</object-name>
+        <condition>
+            <equals>
+                <property>gear/gear[1]/position-norm</property>
+                <value>1.0</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>nose.on</object-name>
+        <condition>
+            <equals>
+                <property>gear/gear[0]/position-norm</property>
+                <value>1.0</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>right.on</object-name>
+        <condition>
+            <equals>
+                <property>gear/gear[2]/position-norm</property>
+                <value>1.0</value>
+            </equals>
+        </condition>
+    </animation>
+
+<!--Panel Animations-->
+
+    <animation>
+        <type>select</type>
+        <object-name>OM.lamp</object-name>
+        <condition>
+            <property>instrumentation/marker-beacon/outer</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>MM.lamp</object-name>
+        <condition>
+            <property>instrumentation/marker-beacon/middle</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>IM.lamp</object-name>
+        <condition>
+            <property>instrumentation/marker-beacon/inner</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>Ebrake</object-name>
+        <property>controls/gear/brake-parking</property>
+        <factor>60</factor>
+        <center>
+            <x-m>-9.703</x-m>
+            <y-m>-0.668</y-m>
+            <z-m>1.136</z-m>
+        </center>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
+<!-- Hotspots -->
+
+    <animation>
+        <type>pick</type>
+        <object-name>Ebrake</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>true</repeatable>
+            <interval-sec>0.2</interval-sec>
+            <binding>
+            <command>property-toggle</command>
+            <property>controls/gear/brake-parking</property>
+            </binding>
+        </action>
+    </animation>
+
+
+</PropertyList>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+<sim>
+    <model>
+        <livery>
+            <name type="string">Western</name>
+            <texture>Liveries/WAL.png</texture>
+        </livery>
+    </model>
+</sim>
+</PropertyList>
