@@ -210,8 +210,9 @@ dirty stall 81 kts @ MLW ( 88,000 lbs)
 <tank x="0.2" y="-12.0" z="0.75" capacity="4170"/><!-- Outer Main #4-->
 <tank x="0" y="0" z="0" capacity="0"/><!-- Dummy-->
 
-<ballast x="-16.0" y="0.0" z="1" mass="-6500"/>
-<ballast x="0.0" y="0.0" z="-1.5" mass="15000"/>
+<!-- <ballast x="-16.0" y="0.0" z="1" mass="-6500"/> Era essa tag que fazia o avião ficar "andando para trás quando estava parado"-->
+<ballast x="0.5" y="0.0" z="-1.5" mass="25000"/>
+<ballast x="5" y="0.0" z="-1.5" mass="7000"/>  <!-- Para compensar a remoção da tag com massa negativa acima -->
 
 <weight x="9.0" y="0.0" z="0.0" mass-prop="/sim/weight[0]/weight-lb"/>
 <weight x="0.5" y="0.0" z="0.0" mass-prop="/sim/weight[1]/weight-lb"/>
