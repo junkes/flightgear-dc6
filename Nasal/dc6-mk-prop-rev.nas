@@ -15,15 +15,15 @@ toggle_reverse_lockout = func {
   if (!proprev_enable.getValue()) {					# Disabled, toggle to enable
     proprev_enable.setValue(1);
     props.globals.getNode("/sim/model/pushback/enabled", 1 ).setBoolValue(1);
-    props.globals.initNode("/sim/model/pushback/target-speed-fps", getprop("controls/engines/engine[0]/throttle")*-1 );
+    props.globals.initNode("/sim/model/pushback/target-speed-fps", (getprop("/controls/engines/engine[0]/throttle") * -1));
     setprop("controls/engines/engine[0]/propeller-pitch", 0);
     setprop("controls/engines/engine[1]/propeller-pitch", 0);
     setprop("controls/engines/engine[2]/propeller-pitch", 0);
     setprop("controls/engines/engine[3]/propeller-pitch", 0);
-    setprop("/sim/model/pushback/target-speed-fps", getprop("controls/engines/engine[0]/throttle")*-1);
     setprop("/sim/model/pushback/force", 1);
+    setprop("/sim/model/pushback/target-speed-fps", (getprop("/controls/engines/engine[0]/throttle") * -1));
     dc6b.message.write("Reverse on!");
-    dc6b.message.write("Reverse on! Setting propeller-pitch: " ~ getprop("controls/engines/engine[0]/propeller-pitch"));
+    dc6b.message.write("Reverse on! Setting propeller-pitch: 0");
     dc6b.switch5SoundToggle();
   } else {						
     proprev_enable.setValue(0);
@@ -35,11 +35,12 @@ toggle_reverse_lockout = func {
       setprop("controls/engines/engine[1]/propeller-pitch", 1);
       setprop("controls/engines/engine[2]/propeller-pitch", 1);
       setprop("controls/engines/engine[3]/propeller-pitch", 1);
-      dc6b.message.write("Engines propeller-pitch set to " ~ getprop("controls/engines/engine[0]/propeller-pitch"));
+      junkes.propellerPitch = 1;
+      dc6b.message.write("Setting propeller-pitch: 0");
     }, 5);
     dc6b.switch5SoundToggle();
     dc6b.message.write("Reverse off!");
-    dc6b.message.write("Reverse off! Setting propeller-pitch: " ~  getprop("controls/engines/engine[0]/propeller-pitch"));
+    dc6b.message.write("Reverse off! Setting propeller-pitch: 0");
   }
 }
 
@@ -63,7 +64,7 @@ setlistener("instrumentation/airspeed-indicator/indicated-speed-kt", func(kt) {
     setprop("controls/engines/engine[1]/throttle", 0);
     setprop("controls/engines/engine[2]/throttle", 0);
     setprop("controls/engines/engine[3]/throttle", 0);
-    dc6b.message.write("Setting throttle: " ~ getprop("controls/engines/engine[0]/throttle"));
+    dc6b.message.write("Setting throttle: 0");
   }
   
 });
@@ -82,7 +83,8 @@ setlistener("position/gear-agl-ft", func(ft) {
     }
   }
 
-  if (getprop("autopilot/switches/ap") and ft.getValue() < 20 and voando > 0 and kt > 100) {
+  if (getprop("autopilot/switches/ap") and ft.getValue() < 20 and voando == 2 and kt > 100) {
+    voando = 3;
     setprop("autopilot/locks/altitude", 'altitude-hold');
     setprop("autopilot/locks/heading", '');
     setprop("autopilot/locks/speed", '');
@@ -90,11 +92,11 @@ setlistener("position/gear-agl-ft", func(ft) {
     setprop("controls/engines/engine[1]/throttle", 0);
     setprop("controls/engines/engine[2]/throttle", 0);
     setprop("controls/engines/engine[3]/throttle", 0);
-    dc6b.message.write("Setting throttle: " ~ getprop("controls/engines/engine[0]/throttle"));
+    dc6b.message.write("Setting throttle: 0");
     dc6b.message.write("Landing...");
   }
   
-  if (ft.getValue() < 2 and voando > 0 and kt > 10) {
+  if (ft.getValue() < 2 and voando == 3 and kt > 10) {
     voando = 0;
 
     setprop("autopilot/locks/altitude", '');
@@ -111,16 +113,17 @@ setlistener("position/gear-agl-ft", func(ft) {
     setprop("controls/flight/flaps", 0);
     dc6b.message.write("Controls and trims centralizeds...");
 
+    # reverse start...
+    toggle_reverse_lockout();
+
     settimer(func(){
-      # reverse start...
-      toggle_reverse_lockout();
 
       # throttle set to 1...
       setprop("controls/engines/engine[0]/throttle", 1);
       setprop("controls/engines/engine[1]/throttle", 1);
       setprop("controls/engines/engine[2]/throttle", 1);
       setprop("controls/engines/engine[3]/throttle", 1);
-      dc6b.message.write("Setting throttle: " ~ getprop("controls/engines/engine[0]/throttle"));
+      dc6b.message.write("Setting throttle: 1");
     }, 3);
   }
 });

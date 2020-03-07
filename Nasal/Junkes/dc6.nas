@@ -1,12 +1,15 @@
 ################# Aircraft specific ############################
-var cruiseSpeed = 250;
-var appSpeed = 125;
-var transitionSpeed = 150;
+var cruiseSpeed = 240;
+var turnSpeed = 180;
+var appSpeed = 120;
+var descentSpeed = 150;
+var climbSpeed = 170;
 var climbFPM = 1300;
 var descentFPM = -2000;
 var mixture = 1;
 var throttle = 0;
 var propellerPitch = 1;
+var flaps = 0;
 ################################################################
 
 var apON = getprop("autopilot/switches/ap");
@@ -15,6 +18,7 @@ var navON = getprop("autopilot/switches/nav");
 var apprON = getprop("autopilot/switches/appr");
 var altON = getprop("autopilot/switches/alt");
 var vsON = getprop("autopilot/switches/pitch");
+var speedON = getprop("autopilot/switches/ias");
 var speedKT = getprop("instrumentation/airspeed-indicator/indicated-speed-kt");
 var altFT = getprop("instrumentation/gps/indicated-altitude-ft");
 var targetAltFT = getprop("autopilot/settings/target-altitude-ft");
@@ -32,15 +36,17 @@ var navInRange = getprop("instrumentation/nav/in-range");
 var currentThrottle = getprop("controls/engines/engine/throttle");
 var currentMixture = getprop("controls/engines/engine/mixture");
 var currentPropellerPitch = getprop("controls/engines/engine/propeller-pitch");
+var currentFlaps = getprop("controls/flight/flaps");
 var gsDeflection = getprop("instrumentation/nav/");
 
-var update = func {
+var updateStats = func {
   apON = getprop("autopilot/switches/ap");
   gpsON = getprop("autopilot/switches/gps");
   navON = getprop("autopilot/switches/nav");
   apprON = getprop("autopilot/switches/appr");
   altON = getprop("autopilot/switches/alt");
   vsON = getprop("autopilot/switches/pitch");
+  speedON = getprop("autopilot/switches/ias");
   speedKT = getprop("instrumentation/airspeed-indicator/indicated-speed-kt");
   altFT = getprop("instrumentation/gps/indicated-altitude-ft");
   targetAltFT = getprop("autopilot/settings/target-altitude-ft");
@@ -58,15 +64,38 @@ var update = func {
   currentThrottle = getprop("controls/engines/engine/throttle");
   currentMixture = getprop("controls/engines/engine/mixture");
   currentPropellerPitch = getprop("controls/engines/engine/propeller-pitch");
+  currentFlaps = getprop("controls/flight/flaps");
   gsDeflection = getprop("instrumentation/nav/gs-needle-deflection-deg");
+  settimer(updateStats, 0);
 }
 
 
-var setMixture = func(target) {
-  setprop("controls/engines/engine[0]/mixture", target);
-  setprop("controls/engines/engine[1]/mixture", target);
-  setprop("controls/engines/engine[2]/mixture", target);
-  setprop("controls/engines/engine[3]/mixture", target);
+var setFlightControls = func() {
+  fatorMixture = mixture > currentMixture ? 0.001 : -0.001;
+  fatorPropellerPitch = propellerPitch > currentPropellerPitch ? 0.001 : -0.001;
+  fatorThrottle = throttle > currentThrottle ? 0.001 : -0.001;
+  fatorFlaps = flaps > currentFlaps ? 0.01 : -0.01;
+  
+  setprop("controls/engines/engine[0]/mixture", currentMixture + fatorMixture);
+  setprop("controls/engines/engine[1]/mixture", currentMixture + fatorMixture);
+  setprop("controls/engines/engine[2]/mixture", currentMixture + fatorMixture);
+  setprop("controls/engines/engine[3]/mixture", currentMixture + fatorMixture);
+
+  setprop("controls/engines/engine[0]/propeller-pitch", currentPropellerPitch + fatorPropellerPitch);
+  setprop("controls/engines/engine[1]/propeller-pitch", currentPropellerPitch + fatorPropellerPitch);
+  setprop("controls/engines/engine[2]/propeller-pitch", currentPropellerPitch + fatorPropellerPitch);
+  setprop("controls/engines/engine[3]/propeller-pitch", currentPropellerPitch + fatorPropellerPitch);
+
+  if (!speedON) {
+    setprop("controls/engines/engine[0]/throttle", currentThrottle + fatorThrottle);
+    setprop("controls/engines/engine[1]/throttle", currentThrottle + fatorThrottle);
+    setprop("controls/engines/engine[2]/throttle", currentThrottle + fatorThrottle);
+    setprop("controls/engines/engine[3]/throttle", currentThrottle + fatorThrottle);
+  }
+
+  setprop("controls/flight/flaps", currentFlaps + fatorFlaps);
+
+  settimer(setFlightControls, 0);
 }
 
 var horizontalNavigation = func {
@@ -81,6 +110,7 @@ var horizontalNavigation = func {
       }
     }
   }
+  settimer(horizontalNavigation, 2);
 }
 
 var verticalNavigation = func {
@@ -101,56 +131,55 @@ var verticalNavigation = func {
       setprop("autopilot/switches/appr", 'true');
       setprop("controls/gear/gear-down", 'true');
       setprop("autopilot/settings/target-speed-kt", appSpeed);
-      setprop("controls/flight/flaps", 1);
-      setMixture(1);
+      flaps = 1;
+      mixture = 1;
       dc6b.message.write("Autopilot appr ON");
       dc6b.message.write("Gears down");
     }
 
     if (altON and altFT > (targetAltFT + 300)) {
-      setprop("autopilot/settings/target-speed-kt", transitionSpeed);
+      setprop("autopilot/settings/target-speed-kt", descentSpeed);
       setprop("autopilot/settings/vertical-speed-fpm", descentFPM);
       setprop("autopilot/switches/pitch", 1);
-      setprop("controls/flight/flaps", 0.5);
-      setMixture(1);
+      flaps = 0;
+      mixture = 1;
       
-      dc6b.message.write("Setting target speed: " ~ transitionSpeed ~ " kt");
-      dc6b.message.write("Setting flaps: 50%");
+      dc6b.message.write("Setting target speed: " ~ descentSpeed ~ " kt");
+      dc6b.message.write("Setting flaps: " ~ flaps);
       dc6b.message.write("Setting vertical speed: " ~ descentFPM ~ " fpm");
       dc6b.message.write("Setting mixture: 1");
     }
 
     if (altON and altFT < (targetAltFT - 300)) {
-      setprop("autopilot/settings/target-speed-kt", transitionSpeed);
+      setprop("autopilot/settings/target-speed-kt", climbSpeed);
       setprop("autopilot/settings/vertical-speed-fpm", climbFPM);
       setprop("autopilot/switches/pitch", 1);
-      setprop("controls/flight/flaps", 0.5);
-      setMixture(1);
+      flaps = 0;
+      mixture = 1;
 
-      dc6b.message.write("Setting target speed: " ~ transitionSpeed ~ " kt");
-      dc6b.message.write("Setting flaps: 50%");
+      dc6b.message.write("Setting target speed: " ~ climbSpeed ~ " kt");
+      dc6b.message.write("Setting flaps: " ~ flaps);
       dc6b.message.write("Setting vertical speed: " ~ climbFPM ~ " fpm");
       dc6b.message.write("Setting mixture: 1");
     }
 
     if (!apprON and vsON and altFT > (targetAltFT - 300) and altFT < (targetAltFT + 300)) {
+      var speed = navON ? descentSpeed : cruiseSpeed;
+      flaps = navON ? 0.5 : 0;
+      mixture = navON ? 1 : 0.6;
       setprop("autopilot/switches/alt", 'true');
-      setprop("controls/flight/flaps", 0);
-      setprop("autopilot/settings/target-speed-kt", cruiseSpeed);
-      setMixture(0.6);
+      setprop("autopilot/settings/target-speed-kt", speed);
 
-      dc6b.message.write("Setting target speed: " ~ cruiseSpeed ~ " kt");
+      dc6b.message.write("Setting target speed: " ~ speed ~ " kt");
       dc6b.message.write("Setting altitude hold: " ~ targetAltFT ~ "ft");
-      dc6b.message.write("Setting mixture: 0.6");
+      dc6b.message.write("Setting flaps: " ~ flaps);
+      dc6b.message.write("Setting mixture: " ~ mixture);
     }
   }
+  settimer(verticalNavigation, 2);
 }
 
-var main = func {
-  update();
-  horizontalNavigation();
-  verticalNavigation();
-  settimer(main, 2);
-}
-
-main();
+updateStats();
+setFlightControls();
+horizontalNavigation();
+verticalNavigation();
