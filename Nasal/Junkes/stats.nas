@@ -15,8 +15,9 @@ var showStats = func {
   display.add("instrumentation/airspeed-indicator/indicated-speed-kt");
   display.add("controls/flight/flaps");
   display.add("consumables/fuel/total-fuel-norm");
-  display.add("instrumentation/nav/in-range");
-  display.add("instrumentation/nav/gs-in-range");
+  display.add("controls/engines/engine/throttle");
+  display.add("controls/engines/engine/mixture");
+  display.add("controls/engines/engine/propeller-pitch");
   stats = 1;
 }
 
