@@ -289,6 +289,10 @@
     <dual_control>
       <file>Aircraft/dc6/Nasal/Gidenstam/pilot-dual-control.nas</file>
     </dual_control>
+    <junkes>
+        <file>Aircraft/dc6/Nasal/Junkes/stats.nas</file>
+        <file>Aircraft/dc6/Nasal/Junkes/dc6.nas</file>
+    </junkes>
 </nasal>
 
 </PropertyList>

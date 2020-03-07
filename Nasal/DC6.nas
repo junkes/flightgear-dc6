@@ -3,9 +3,14 @@ var FDM="";
 var counter=0;
 aircraft.livery.init("Aircraft/dc6/Models/Liveries"); 
 
-var window = screen.window.new(); # criado por Julio Junkes: exibir mensagens para o piloto
-window.fg = [1, 1, 1, 1];
-window.bg = [0, 0, 0, 1];
+var createMessage = func {
+  var window = screen.window.new(nil, nil, 10, 10);
+  window.fg = [0, 1, 0, 0.8];
+  window.bg = [0, 0, 0, 0.8];
+  return window;
+}
+
+var message = createMessage();
 
 #tire rotation per minute by circumference/groundspeed#
 TireSpeed = {
@@ -77,7 +82,7 @@ setlistener("/sim/model/autostart", func(idle){
 },0,0);
 
 
-var Startup = func{
+var Startup = func{ ################################### edited by Julio Junkes
   setprop("controls/electric/engine[0]/generator",1);
   setprop("controls/electric/engine[1]/generator",1);
   setprop("controls/electric/engine[2]/generator",1);
@@ -110,27 +115,31 @@ var Startup = func{
       setprop("fdm/jsbsim/propulsion/set-running",-1);
   }else{
    
-    window.write("Starting engines, please wait...");
+    message.write("Starting engines, please wait");
+
     settimer(func(){ 
+      
       setprop("controls/engines/engine[0]/starter",1);
-    }, 1);
+    }, 0);
     settimer(func(){ 
       setprop("controls/engines/engine[0]/starter",0);
+      message.write("Engine 1 Ok!");
       setprop("controls/engines/engine[3]/starter",1);
-    }, 4);
+    }, 5);
     settimer(func(){ 
       setprop("controls/engines/engine[3]/starter",0);
+      message.write("Engine 4 Ok!");
       setprop("controls/engines/engine[2]/starter",1);
-    }, 7);
+    }, 10);
     settimer(func(){ 
       setprop("controls/engines/engine[2]/starter",0);
+      message.write("Engine 3 Ok!");
       setprop("controls/engines/engine[1]/starter",1);
-    }, 10);
+    }, 15);
     settimer(func(){
       setprop("controls/engines/engine[1]/starter",0);
-      setprop("controls/electric/battery-switch",0); # desligando baterias após start dos geradores 
-      window.write("Engines running...");
-    }, 13);
+      message.write("Engine 2 Ok!");
+    }, 20);
   }
 }
 
@@ -151,6 +160,7 @@ var Shutdown = func{
   setprop("controls/engines/engine[2]/fuel-pump",0);
   setprop("controls/engines/engine[3]/magnetos",0);
   setprop("controls/engines/engine[3]/fuel-pump",0);
+  message.write("Shutdown Ok!");
 }
 
 var update = func {
@@ -214,58 +224,71 @@ var switch6SoundToggle = func{
 ############################ Adicionado por Julio Junkes ##############################
 
 # diminui automaticamente a mistura para 0.6 em cruzeiro
-setlistener("autopilot/internal/vert-speed-fpm", func (fpm) {
-    var kt = getprop("instrumentation/airspeed-indicator/indicated-speed-kt");
-    if (kt > 180 and fpm.getValue() < 100 and fpm.getValue() > -100) {
-        if (getprop("controls/engines/engine[0]/mixture") != 0.6) {
-            setprop("controls/engines/engine[0]/mixture", 0.6);
-            setprop("controls/engines/engine[1]/mixture", 0.6);
-            setprop("controls/engines/engine[2]/mixture", 0.6);
-            setprop("controls/engines/engine[3]/mixture", 0.6);
-            print("Mistura ajustada em todos os motores para ", getprop("controls/engines/engine[0]/mixture"));
-        }
-    } else {
-        if (getprop("controls/engines/engine[0]/mixture") != 1) {
-            setprop("controls/engines/engine[0]/mixture", 1);
-            setprop("controls/engines/engine[1]/mixture", 1);
-            setprop("controls/engines/engine[2]/mixture", 1);
-            setprop("controls/engines/engine[3]/mixture", 1);
-            print("Mistura ajustada em todos os motores para ", getprop("controls/engines/engine[0]/mixture"));
-        }
-    }
-});
+# setlistener("autopilot/internal/vert-speed-fpm", func (fpm) {
+#     var kt = getprop("instrumentation/airspeed-indicator/indicated-speed-kt");
+#     if (kt > 180 and fpm.getValue() < 100 and fpm.getValue() > -100) {
+#         if (getprop("controls/engines/engine[0]/mixture") != 0.6) {
+#             setprop("controls/engines/engine[0]/mixture", 0.6);
+#             setprop("controls/engines/engine[1]/mixture", 0.6);
+#             setprop("controls/engines/engine[2]/mixture", 0.6);
+#             setprop("controls/engines/engine[3]/mixture", 0.6);
+#             message.write("Setting mixture: " ~ getprop("controls/engines/engine[0]/mixture"));
+#         }
+#     } else {
+#         if (getprop("controls/engines/engine[0]/mixture") != 1) {
+#             setprop("controls/engines/engine[0]/mixture", 1);
+#             setprop("controls/engines/engine[1]/mixture", 1);
+#             setprop("controls/engines/engine[2]/mixture", 1);
+#             setprop("controls/engines/engine[3]/mixture", 1);
+#             message.write("Setting mixture: " ~ getprop("controls/engines/engine[0]/mixture"));
+#         }
+#     }
+# });
 
-# alterna automaticamente do modo altitude para vertical speed
-setlistener("instrumentation/altimeter/indicated-altitude-ft", func (ft) {
-    if (getprop("autopilot/switches/ap") and !getprop("autopilot/switches/appr") and getprop("instrumentation/airspeed-indicator/indicated-speed-kt") > 110) {
-        var target_ft = getprop("autopilot/settings/target-altitude-ft");
-        if (getprop("autopilot/switches/alt") and ft.getValue() > (target_ft + 500)) {
-          setprop("autopilot/settings/vertical-speed-fpm", -1500);
-          setprop("autopilot/switches/pitch", 1);
-        }
+# Toogle [ altitude hold <=> vertical speed ] and speed
+# setlistener("instrumentation/altimeter/indicated-altitude-ft", func (ft) {
+#   if (getprop("autopilot/switches/ap") and getprop("autopilot/switches/gps") and getprop("instrumentation/airspeed-indicator/indicated-speed-kt") > 110) {
+#     var target_ft = getprop("autopilot/settings/target-altitude-ft");
+#     var mixture = 1;
+#     if (getprop("autopilot/switches/alt") and ft.getValue() > (target_ft + 300)) {
+#       setprop("autopilot/settings/target-speed-kt", 150);
+#       setprop("autopilot/settings/vertical-speed-fpm", -2000);
+#       setprop("autopilot/switches/pitch", 1);
+#       message.write("Setting target speed: 150 kt");
+#       message.write("Setting flaps: 50%");
+#       setprop("controls/flight/flaps", 0.5);
+#       message.write("Setting vertical speed: -2000 fpm");
+#     }
 
-        if (getprop("autopilot/switches/alt") and ft.getValue() < (target_ft - 500)) {
-          setprop("autopilot/settings/vertical-speed-fpm", 1500);
-          setprop("autopilot/switches/pitch", 1);
-        }
+#     if (getprop("autopilot/switches/alt") and ft.getValue() < (target_ft - 300)) {
+#       setprop("autopilot/settings/target-speed-kt", 150);
+#       setprop("autopilot/settings/vertical-speed-fpm", 1000);
+#       setprop("autopilot/switches/pitch", 1);
+#       message.write("Setting target speed: 150 kt");
+#       message.write("Setting flaps: 50%");
+#       setprop("controls/flight/flaps", 0.5);
+#       message.write("Setting vertical speed: 1000 fpm");
+#     }
 
-        if (ft.getValue() > (target_ft - 500) and ft.getValue() < (target_ft + 500)) {
-          setprop("autopilot/switches/alt", 'true')
-        }
-    }
-});
+#     if (getprop("autopilot/switches/pitch") and ft.getValue() > (target_ft - 300) and ft.getValue() < (target_ft + 300)) {
+#       setprop("autopilot/switches/alt", 'true');
+#       setprop("controls/flight/flaps", 0);
+#       mixture = 0.6;
+#       var speed = 220;
+#       if ((target_ft - getprop("autopilot/route-manager/destination/field-elevation-ft")) <= 2500 ) {
+#         setprop("controls/flight/flaps", 1);
+#         speed = 115;
+#         mixture = 1;
+#       }
+#       setprop("controls/engines/engine[0]/mixture", mixture);
+#       setprop("controls/engines/engine[1]/mixture", mixture);
+#       setprop("controls/engines/engine[2]/mixture", mixture);
+#       setprop("controls/engines/engine[3]/mixture", mixture);
+#       setprop("autopilot/settings/target-speed-kt", speed);
+#       message.write("Setting target speed: " ~ speed ~ " kt");
+#       message.write("Setting altitude hold: " ~ target_ft ~ "ft");
+#       message.write("Setting mixture: " ~ mixture);
+#     }
+#   }
+# });
 
-# altera automaticamente para o próximo wp do route manager quando está a 1 nm do wp atual
-setlistener("autopilot/route-manager/wp/dist", func (nm_next_wp) {
-  if(getprop("autopilot/route-manager/active")) {
-    if( (getprop("autopilot/route-manager/current-wp") > 0) and nm_next_wp.getValue() < 1) {
-      if ((getprop("autopilot/route-manager/current-wp") + 1) == (getprop("autopilot/route-manager/route/num") - 1)) { 
-        # ignora o primeiro e o último wp
-        return;
-      } else {
-        setprop("autopilot/route-manager/current-wp", (getprop("autopilot/route-manager/current-wp") + 1));
-        print("waypoint alterado automaticamente a ", nm_next_wp.getValue(), " nm");
-      }
-    }
-  }
-})

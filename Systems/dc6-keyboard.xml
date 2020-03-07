@@ -2,6 +2,15 @@
 
 <PropertyList>
 
+  <key n="257">
+    <name>F1</name>
+    <desc>Toogle Display Stats</desc>
+    <binding>
+      <command>nasal</command>
+      <script>junkes.toogleStats()</script>
+    </binding>
+  </key>
+
   <key n="258">
     <name>F2</name>
     <desc>Propeller reverse lock</desc>
@@ -11,13 +20,13 @@
     </binding>
   </key>
 
-  <key n="8">
-    <name>Backspace</name>
-    <desc>Engage Propeller reverse.</desc>
-    <binding>
-      <command>nasal</command>
-      <script>dc6b.toggle_prop_reverse()</script>
-    </binding>
-  </key>
+  <!-- <key n="8"> -->
+    <!-- <name>Backspace</name> -->
+    <!-- <desc>Engage Propeller reverse.</desc> -->
+    <!-- <binding> -->
+      <!-- <command>nasal</command> -->
+      <!-- <script>dc6b.toggle_prop_reverse()</script> -->
+    <!-- </binding> -->
+  <!-- </key> -->
 
 </PropertyList>

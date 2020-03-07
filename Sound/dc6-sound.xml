@@ -9,7 +9,7 @@
         <mode>looped</mode>
         <path>Aircraft/dc6/Sound/starter.wav</path>
         <condition>
-            <property>/engines/engine[0]/cranking</property>
+            <property>/controls/engines/engine[0]/cranking</property>
             <not>
                 <property>/engines/engine[0]/running</property>
             </not>
@@ -42,35 +42,35 @@
         <max-dist>50.0</max-dist>
     </crank>
 
-    <engine>
-        <name>engine1_idle</name>
-        <mode>looped</mode>
-        <path>Aircraft/dc6/Sound/idle.wav</path>
-        <condition>
-            <and>
-                <property>/engines/engine[0]/running</property>
-                <less-than>
-                    <property>/engines/engine[0]/rpm</property>
-                    <value>1000</value>
-                </less-than>
-            </and>
-        </condition>
-        <volume>
-            <property>/sim/sound/view-volume</property>
-        </volume>
-        <pitch>
-            <property>/engines/engine[0]/bmep</property>
-            <factor>0.004</factor>
-            <offset>0.5</offset>
-        </pitch>
-        <position>
-            <x>-3.10</x>
-            <y>8.35</y>
-            <z>-0.3</z>
-        </position>
-        <reference-dist>20.0</reference-dist>
-        <max-dist>50.0</max-dist>
-    </engine>
+    <!-- <engine> -->
+        <!-- <name>engine1_idle</name> -->
+        <!-- <mode>looped</mode> -->
+        <!-- <path>Aircraft/dc6/Sound/idle.wav</path> -->
+        <!-- <condition> -->
+            <!-- <and> -->
+                <!-- <property>/engines/engine[0]/running</property> -->
+                <!-- <less-than> -->
+                    <!-- <property>/engines/engine[0]/rpm</property> -->
+                    <!-- <value>1000</value> -->
+                <!-- </less-than> -->
+            <!-- </and> -->
+        <!-- </condition> -->
+        <!-- <volume> -->
+            <!-- <property>/sim/sound/view-volume</property> -->
+        <!-- </volume> -->
+        <!-- <pitch> -->
+            <!-- <property>/engines/engine[0]/bmep</property> -->
+            <!-- <factor>0.004</factor> -->
+            <!-- <offset>0.5</offset> -->
+        <!-- </pitch> -->
+        <!-- <position> -->
+            <!-- <x>-3.10</x> -->
+            <!-- <y>8.35</y> -->
+            <!-- <z>-0.3</z> -->
+        <!-- </position> -->
+        <!-- <reference-dist>20.0</reference-dist> -->
+        <!-- <max-dist>50.0</max-dist> -->
+    <!-- </engine> -->
 
     <engine>
         <name>engine1_running</name>
@@ -113,7 +113,7 @@
         <mode>looped</mode>
         <path>Aircraft/dc6/Sound/starter.wav</path>
         <condition>
-            <property>/engines/engine[1]/cranking</property>
+            <property>/controls/engines/engine[1]/cranking</property>
             <not>
                 <property>/engines/engine[1]/running</property>
             </not>
@@ -145,34 +145,34 @@
         <reference-dist>20.0</reference-dist>
         <max-dist>50.0</max-dist>
     </crank>
-
-    <engine>
-        <name>engine2_idle</name>
-        <mode>looped</mode>
-        <path>Aircraft/dc6/Sound/idle.wav</path>
-        <condition>
-            <property>/engines/engine[1]/running</property>
-            <less-than>
-                <property>/engines/engine[1]/rpm</property>
-                <value>1000</value>
-            </less-than>
-        </condition>
-        <volume>
-            <property>/sim/sound/view-volume</property>
-        </volume>
-        <pitch>
-            <property>/engines/engine[1]/bmep</property>
-            <factor>0.004</factor>
-            <offset>0.5</offset>
-        </pitch>
-        <position>
-            <x>-3.87</x>
-            <y>3.88</y>
-            <z>-0.68</z>
-        </position>
-        <reference-dist>20.0</reference-dist>
-        <max-dist>50.0</max-dist>
-    </engine>
+<!--  -->
+    <!-- <engine> -->
+        <!-- <name>engine2_idle</name> -->
+        <!-- <mode>looped</mode> -->
+        <!-- <path>Aircraft/dc6/Sound/idle.wav</path> -->
+        <!-- <condition> -->
+            <!-- <property>/engines/engine[1]/running</property> -->
+            <!-- <less-than> -->
+                <!-- <property>/engines/engine[1]/rpm</property> -->
+                <!-- <value>1000</value> -->
+            <!-- </less-than> -->
+        <!-- </condition> -->
+        <!-- <volume> -->
+            <!-- <property>/sim/sound/view-volume</property> -->
+        <!-- </volume> -->
+        <!-- <pitch> -->
+            <!-- <property>/engines/engine[1]/bmep</property> -->
+            <!-- <factor>0.004</factor> -->
+            <!-- <offset>0.5</offset> -->
+        <!-- </pitch> -->
+        <!-- <position> -->
+            <!-- <x>-3.87</x> -->
+            <!-- <y>3.88</y> -->
+            <!-- <z>-0.68</z> -->
+        <!-- </position> -->
+        <!-- <reference-dist>20.0</reference-dist> -->
+        <!-- <max-dist>50.0</max-dist> -->
+    <!-- </engine> -->
 
     <engine>
         <name>engine2_running</name>
@@ -209,7 +209,7 @@
         <mode>looped</mode>
         <path>Aircraft/dc6/Sound/starter.wav</path>
         <condition>
-            <property>/engines/engine[2]/cranking</property>
+            <property>/controls/engines/engine[2]/cranking</property>
             <not>
                 <property>/engines/engine[2]/running</property>
             </not>
@@ -242,33 +242,33 @@
         <max-dist>50.0</max-dist>
     </crank>
 
-    <engine>
-        <name>engine3_idle</name>
-        <mode>looped</mode>
-        <path>Aircraft/dc6/Sound/idle.wav</path>
-        <condition>
-            <property>/engines/engine[2]/running</property>
-            <less-than>
-                <property>/engines/engine[2]/rpm</property>
-                <value>1000</value>
-            </less-than>
-        </condition>
-        <volume>
-            <property>/sim/sound/view-volume</property>
-        </volume>
-        <pitch>
-            <property>/engines/engine[2]/bmep</property>
-            <factor>0.004</factor>
-            <offset>0.5</offset>
-        </pitch>
-        <position>
-            <x>-3.87</x>
-            <y>-3.88</y>
-            <z>-0.68</z>
-        </position>
-        <reference-dist>20.0</reference-dist>
-        <max-dist>50.0</max-dist>
-    </engine>
+    <!-- <engine> -->
+        <!-- <name>engine3_idle</name> -->
+        <!-- <mode>looped</mode> -->
+        <!-- <path>Aircraft/dc6/Sound/idle.wav</path> -->
+        <!-- <condition> -->
+            <!-- <property>/engines/engine[2]/running</property> -->
+            <!-- <less-than> -->
+                <!-- <property>/engines/engine[2]/rpm</property> -->
+                <!-- <value>1000</value> -->
+            <!-- </less-than> -->
+        <!-- </condition> -->
+        <!-- <volume> -->
+            <!-- <property>/sim/sound/view-volume</property> -->
+        <!-- </volume> -->
+        <!-- <pitch> -->
+            <!-- <property>/engines/engine[2]/bmep</property> -->
+            <!-- <factor>0.004</factor> -->
+            <!-- <offset>0.5</offset> -->
+        <!-- </pitch> -->
+        <!-- <position> -->
+            <!-- <x>-3.87</x> -->
+            <!-- <y>-3.88</y> -->
+            <!-- <z>-0.68</z> -->
+        <!-- </position> -->
+        <!-- <reference-dist>20.0</reference-dist> -->
+        <!-- <max-dist>50.0</max-dist> -->
+    <!-- </engine> -->
 
     <engine>
         <name>engine3_running</name>
@@ -322,49 +322,49 @@
         <max-dist>10.0</max-dist>
     </crank>
 
-    <crank>
-        <name>cough4</name>
-        <path>Aircraft/dc6/Sound/startup.wav</path>
-        <property>/engines/engine[3]/running</property>
-        <volume>
-            <property>/sim/sound/view-volume</property>
-        </volume>
-        <position>
-            <x>-3.10</x>
-            <y>-8.35</y>
-            <z>-0.3</z>
-        </position>
-        <reference-dist>20.0</reference-dist>
-        <max-dist>50.0</max-dist>
-    </crank>
+    <!-- <crank> -->
+        <!-- <name>cough4</name> -->
+        <!-- <path>Aircraft/dc6/Sound/startup.wav</path> -->
+        <!-- <property>/engines/engine[3]/running</property> -->
+        <!-- <volume> -->
+            <!-- <property>/sim/sound/view-volume</property> -->
+        <!-- </volume> -->
+        <!-- <position> -->
+            <!-- <x>-3.10</x> -->
+            <!-- <y>-8.35</y> -->
+            <!-- <z>-0.3</z> -->
+        <!-- </position> -->
+        <!-- <reference-dist>20.0</reference-dist> -->
+        <!-- <max-dist>50.0</max-dist> -->
+    <!-- </crank> -->
 
-    <engine>
-        <name>engine4_idle</name>
-        <mode>looped</mode>
-        <path>Aircraft/dc6/Sound/idle.wav</path>
-        <condition>
-            <property>/engines/engine[3]/running</property>
-            <less-than>
-                <property>/engines/engine[3]/rpm</property>
-                <value>1000</value>
-            </less-than>
-        </condition>
-        <volume>
-            <property>/sim/sound/view-volume</property>
-        </volume>
-        <pitch>
-            <property>/engines/engine[3]/bmep</property>
-            <factor>0.004</factor>
-            <offset>0.5</offset>
-        </pitch>
-        <position>
-            <x>-3.10</x>
-            <y>-8.35</y>
-            <z>-0.3</z>
-        </position>
-        <reference-dist>20.0</reference-dist>
-        <max-dist>50.0</max-dist>
-    </engine>
+    <!-- <engine> -->
+        <!-- <name>engine4_idle</name> -->
+        <!-- <mode>looped</mode> -->
+        <!-- <path>Aircraft/dc6/Sound/idle.wav</path> -->
+        <!-- <condition> -->
+            <!-- <property>/engines/engine[3]/running</property> -->
+            <!-- <less-than> -->
+                <!-- <property>/engines/engine[3]/rpm</property> -->
+                <!-- <value>1000</value> -->
+            <!-- </less-than> -->
+        <!-- </condition> -->
+        <!-- <volume> -->
+            <!-- <property>/sim/sound/view-volume</property> -->
+        <!-- </volume> -->
+        <!-- <pitch> -->
+            <!-- <property>/engines/engine[3]/bmep</property> -->
+            <!-- <factor>0.004</factor> -->
+            <!-- <offset>0.5</offset> -->
+        <!-- </pitch> -->
+        <!-- <position> -->
+            <!-- <x>-3.10</x> -->
+            <!-- <y>-8.35</y> -->
+            <!-- <z>-0.3</z> -->
+        <!-- </position> -->
+        <!-- <reference-dist>20.0</reference-dist> -->
+        <!-- <max-dist>50.0</max-dist> -->
+    <!-- </engine> -->
 
     <engine>
         <name>engine4_running</name>

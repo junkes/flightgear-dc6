@@ -10,21 +10,24 @@ setlistener("/controls/engines/engine[0]/throttle", func(throttle) {
     }
 });
 
+var window = screen.window.new(); # criado por Julio Junkes: exibir mensagens para o piloto
+window.fg = [1, 1, 1, 1];
+window.bg = [0, 0, 0, 0.8];
+
 # Enabled , disabled prop reverser 
 toggle_reverse_lockout = func {
   if (!proprev_enable.getValue()) {					# Disabled, toggle to enable
     proprev_enable.setValue(1);
     props.globals.getNode("/sim/model/pushback/enabled", 1 ).setBoolValue(1);
-    props.globals.initNode("/sim/model/pushback/target-speed-fps", getprop("engines/engine[0]/throttle")*-1 );
+    props.globals.initNode("/sim/model/pushback/target-speed-fps", (getprop("engines/engine[0]/throttle") or 1)*-1 );
     setprop("controls/engines/engine[0]/propeller-pitch", 0);
     setprop("controls/engines/engine[1]/propeller-pitch", 0);
     setprop("controls/engines/engine[2]/propeller-pitch", 0);
     setprop("controls/engines/engine[3]/propeller-pitch", 0);
-    setprop("/sim/model/pushback/target-speed-fps", getprop("engines/engine[0]/throttle")*-1);
+    setprop("/sim/model/pushback/target-speed-fps", (getprop("engines/engine[0]/throttle") or 1)*-1);
     setprop("/sim/model/pushback/force", 1);
-    print("gear 0 rodando a ", getprop("gear/gear[0]/tire-rpm"), " rpm");
-    print("Reverso ligado");
-    print("controls/engines/engine[0]/propeller-pitch ", getprop("engines/engine[0]/propeller-pitch"));
+    window.write("Reverse on!");
+    window.write("Reverse on! Setting propeller-pitch: " ~ getprop("engines/engine[0]/propeller-pitch"));
     dc6b.switch5SoundToggle();
   } else {						
     proprev_enable.setValue(0);
@@ -36,10 +39,12 @@ toggle_reverse_lockout = func {
       setprop("controls/engines/engine[1]/propeller-pitch", 1);
       setprop("controls/engines/engine[2]/propeller-pitch", 1);
       setprop("controls/engines/engine[3]/propeller-pitch", 1);
-      print("controls/engines/engine[0]/propeller-pitch ", getprop("engines/engine[0]/propeller-pitch"));
+      window.write("Engines propeller-pitch set to " ~ getprop("engines/engine[0]/propeller-pitch"));
     }, 5);
     dc6b.switch5SoundToggle();
-    print("Reverso desligado");
+    window.write("Reverse off!");
+    
+    window.write("Reverse off! Setting propeller-pitch: " ~  getprop("engines/engine[0]/propeller-pitch"));
   }
 }
 
@@ -69,9 +74,9 @@ toggle_prop_reverse = func {
 
 setlistener("instrumentation/airspeed-indicator/indicated-speed-kt", func(kt) {
 
-  # se gear 0 for menor que 100 rpm então desativa o reverse automaticamente
+  # if speed lower then 10 kt, reverse off!
   if( proprev_enable.getValue() and proprev_controls.getValue() and kt.getValue() < 10 ) {
-    print("Velocidade: ", kt.getValue(), " kt");
+    window.write("Speed " ~ kt.getValue());
     # proprev_enable.setValue(0);
     # setprop("/sim/model/pushback/enabled", 0 );
     # setprop("/sim/model/pushback/target-speed-fps", 0 );
@@ -79,12 +84,12 @@ setlistener("instrumentation/airspeed-indicator/indicated-speed-kt", func(kt) {
 
     toggle_reverse_lockout();
 
-    # reduz o throttle automaticamente
+    # throttle set to 0
     setprop("controls/engines/engine[0]/throttle", 0);
     setprop("controls/engines/engine[1]/throttle", 0);
     setprop("controls/engines/engine[2]/throttle", 0);
     setprop("controls/engines/engine[3]/throttle", 0);
-    print("Throttle dos 4 motores configurado automaticamente para ", getprop("controls/engines/engine[0]/throttle"));
+    window.write("Setting throttle: " ~ getprop("controls/engines/engine[0]/throttle"));
   }
   
 });
@@ -95,11 +100,11 @@ setlistener("position/gear-agl-ft", func(ft) {
   var kt = getprop("instrumentation/airspeed-indicator/indicated-speed-kt");
   if (ft.getValue() > 500 and voando == 0) {
     voando = 1;
-    print("Voando...");
+    window.write("500 agl reached...");
   } else {
     if (voando == 1 and ft.getValue() < 500) {
       voando = 2;
-      print("Pousando...");
+      window.write("500 agl reached...");
     }
   }
 
@@ -111,7 +116,8 @@ setlistener("position/gear-agl-ft", func(ft) {
     setprop("controls/engines/engine[1]/throttle", 0);
     setprop("controls/engines/engine[2]/throttle", 0);
     setprop("controls/engines/engine[3]/throttle", 0);
-    print("Preparando para o toque ...");
+    window.write("Setting throttle: " ~ getprop("controls/engines/engine[0]/throttle"));
+    window.write("Landing...");
   }
   
   if (ft.getValue() < 2 and voando > 0 and kt > 10) {
@@ -120,7 +126,7 @@ setlistener("position/gear-agl-ft", func(ft) {
     setprop("autopilot/locks/altitude", '');
     setprop("autopilot/locks/heading", '');
     setprop("autopilot/locks/speed", '');
-    print("Autopilot desligado ...");
+    window.write("Autopilot off ...");
     
     setprop("controls/flight/aileron", 0);
     setprop("controls/flight/aileron-trim", 0);
@@ -129,17 +135,18 @@ setlistener("position/gear-agl-ft", func(ft) {
     setprop("controls/flight/rudder", 0);
     setprop("controls/flight/rudder-trim", 0);
     setprop("controls/flight/flaps", 0);
-    print("Controles e trims centralizados ...");
+    window.write("Controls and trims centralizeds...");
 
     settimer(func(){
-      # liga o reverso automaticamente...
+      # reverse start...
       toggle_reverse_lockout();
 
-      # aumenta o throttle automaticamente para o máximo...
+      # throttle set to 1...
       setprop("controls/engines/engine[0]/throttle", 1);
       setprop("controls/engines/engine[1]/throttle", 1);
       setprop("controls/engines/engine[2]/throttle", 1);
       setprop("controls/engines/engine[3]/throttle", 1);
-    }, 5, 0);
+      window.write("Setting throttle: " ~ getprop("controls/engines/engine[0]/throttle"));
+    }, 5);
   }
 });
