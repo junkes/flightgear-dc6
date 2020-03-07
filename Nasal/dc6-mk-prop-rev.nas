@@ -121,6 +121,6 @@ setlistener("position/gear-agl-ft", func(ft) {
       setprop("controls/engines/engine[2]/throttle", 1);
       setprop("controls/engines/engine[3]/throttle", 1);
       dc6b.message.write("Setting throttle: " ~ getprop("controls/engines/engine[0]/throttle"));
-    }, 5);
+    }, 3);
   }
 });
