@@ -16,7 +16,7 @@
     <desc>Propeller reverse lock</desc>
     <binding>
       <command>nasal</command>
-      <script>dc6b.toggle_reverse_lockout()</script>
+      <script>junkes.reverseByKeyboard()</script>
     </binding>
   </key>
 

@@ -269,7 +269,7 @@
     <dc6b>
         <file>Aircraft/dc6/Nasal/DC6.nas</file>
         <file>Aircraft/dc6/Nasal/Electrical.nas</file>
-        <file>Aircraft/dc6/Nasal/dc6-mk-prop-rev.nas</file>   
+        <!-- <file>Aircraft/dc6/Nasal/dc6-mk-prop-rev.nas</file> -->
         <file>Aircraft/dc6/Nasal/mk-ki266.nas</file>
         <script><![CDATA[
           ki266.new(0);

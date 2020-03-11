@@ -4,7 +4,7 @@ var counter=0;
 aircraft.livery.init("Aircraft/dc6/Models/Liveries"); 
 
 var createMessage = func {
-  var window = screen.window.new(nil, nil, 10, 10);
+  var window = screen.window.new(nil, 100, 10, 10);
   window.fg = [0, 1, 0, 0.8];
   window.bg = [0, 0, 0, 0.8];
   return window;
@@ -125,21 +125,21 @@ var Startup = func{ ################################### edited by Julio Junkes
       setprop("controls/engines/engine[0]/starter",0);
       message.write("Engine 1 Ok!");
       setprop("controls/engines/engine[3]/starter",1);
-    }, 5);
+    }, 2);
     settimer(func(){ 
       setprop("controls/engines/engine[3]/starter",0);
       message.write("Engine 4 Ok!");
       setprop("controls/engines/engine[2]/starter",1);
-    }, 10);
+    }, 4);
     settimer(func(){ 
       setprop("controls/engines/engine[2]/starter",0);
       message.write("Engine 3 Ok!");
       setprop("controls/engines/engine[1]/starter",1);
-    }, 15);
+    }, 6);
     settimer(func(){
       setprop("controls/engines/engine[1]/starter",0);
       message.write("Engine 2 Ok!");
-    }, 20);
+    }, 8);
   }
 }
 
@@ -219,76 +219,3 @@ var switch6SoundToggle = func{
     switchSound.setBoolValue(1);
   }
 }
-
-
-############################ Adicionado por Julio Junkes ##############################
-
-# diminui automaticamente a mistura para 0.6 em cruzeiro
-# setlistener("autopilot/internal/vert-speed-fpm", func (fpm) {
-#     var kt = getprop("instrumentation/airspeed-indicator/indicated-speed-kt");
-#     if (kt > 180 and fpm.getValue() < 100 and fpm.getValue() > -100) {
-#         if (getprop("controls/engines/engine[0]/mixture") != 0.6) {
-#             setprop("controls/engines/engine[0]/mixture", 0.6);
-#             setprop("controls/engines/engine[1]/mixture", 0.6);
-#             setprop("controls/engines/engine[2]/mixture", 0.6);
-#             setprop("controls/engines/engine[3]/mixture", 0.6);
-#             message.write("Setting mixture: " ~ getprop("controls/engines/engine[0]/mixture"));
-#         }
-#     } else {
-#         if (getprop("controls/engines/engine[0]/mixture") != 1) {
-#             setprop("controls/engines/engine[0]/mixture", 1);
-#             setprop("controls/engines/engine[1]/mixture", 1);
-#             setprop("controls/engines/engine[2]/mixture", 1);
-#             setprop("controls/engines/engine[3]/mixture", 1);
-#             message.write("Setting mixture: " ~ getprop("controls/engines/engine[0]/mixture"));
-#         }
-#     }
-# });
-
-# Toogle [ altitude hold <=> vertical speed ] and speed
-# setlistener("instrumentation/altimeter/indicated-altitude-ft", func (ft) {
-#   if (getprop("autopilot/switches/ap") and getprop("autopilot/switches/gps") and getprop("instrumentation/airspeed-indicator/indicated-speed-kt") > 110) {
-#     var target_ft = getprop("autopilot/settings/target-altitude-ft");
-#     var mixture = 1;
-#     if (getprop("autopilot/switches/alt") and ft.getValue() > (target_ft + 300)) {
-#       setprop("autopilot/settings/target-speed-kt", 150);
-#       setprop("autopilot/settings/vertical-speed-fpm", -2000);
-#       setprop("autopilot/switches/pitch", 1);
-#       message.write("Setting target speed: 150 kt");
-#       message.write("Setting flaps: 50%");
-#       setprop("controls/flight/flaps", 0.5);
-#       message.write("Setting vertical speed: -2000 fpm");
-#     }
-
-#     if (getprop("autopilot/switches/alt") and ft.getValue() < (target_ft - 300)) {
-#       setprop("autopilot/settings/target-speed-kt", 150);
-#       setprop("autopilot/settings/vertical-speed-fpm", 1000);
-#       setprop("autopilot/switches/pitch", 1);
-#       message.write("Setting target speed: 150 kt");
-#       message.write("Setting flaps: 50%");
-#       setprop("controls/flight/flaps", 0.5);
-#       message.write("Setting vertical speed: 1000 fpm");
-#     }
-
-#     if (getprop("autopilot/switches/pitch") and ft.getValue() > (target_ft - 300) and ft.getValue() < (target_ft + 300)) {
-#       setprop("autopilot/switches/alt", 'true');
-#       setprop("controls/flight/flaps", 0);
-#       mixture = 0.6;
-#       var speed = 220;
-#       if ((target_ft - getprop("autopilot/route-manager/destination/field-elevation-ft")) <= 2500 ) {
-#         setprop("controls/flight/flaps", 1);
-#         speed = 115;
-#         mixture = 1;
-#       }
-#       setprop("controls/engines/engine[0]/mixture", mixture);
-#       setprop("controls/engines/engine[1]/mixture", mixture);
-#       setprop("controls/engines/engine[2]/mixture", mixture);
-#       setprop("controls/engines/engine[3]/mixture", mixture);
-#       setprop("autopilot/settings/target-speed-kt", speed);
-#       message.write("Setting target speed: " ~ speed ~ " kt");
-#       message.write("Setting altitude hold: " ~ target_ft ~ "ft");
-#       message.write("Setting mixture: " ~ mixture);
-#     }
-#   }
-# });
-
