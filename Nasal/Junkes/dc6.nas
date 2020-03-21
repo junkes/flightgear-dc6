@@ -4,8 +4,10 @@ var turnSpeed = 180;
 var appSpeed = 120;
 var descentSpeed = 150;
 var climbSpeed = 170;
-var climbFPM = 1300;
+var climbFPM = 1500;
 var descentFPM = -2000;
+################################################################
+
 var mixture = 1;
 var throttle = 0;
 var propellerPitch = 1;
@@ -21,6 +23,7 @@ var distanceWP = 0;
 var courseRWY = 0;
 var distanceRWY = 0;
 var elevationRWY = 0;
+var timeToRWY = 0;
 var positionRWY = {lat: 0, lon: 0};
 var headingRWY = 0;
 var WPlat = 0;
@@ -40,6 +43,7 @@ props.globals.initNode("junkes/current-wp-course", 0);
 props.globals.initNode("junkes/rwy-dist", 0);
 props.globals.initNode("junkes/rwy-course", 0);
 props.globals.initNode("junkes/current-vertical-speed", 0);
+props.globals.initNode("junkes/time-to-rwy", 0);
 
 var main = func {
   setprop("junkes/current-vertical-speed", (getprop("velocities/vertical-speed-fps") or 0) * 60);
@@ -63,22 +67,20 @@ var main = func {
     WPlon = getprop("autopilot/route-manager/route/wp["~currentWPIndex~"]/longitude-deg");
 
     (courseWP, distanceWP) = courseAndDistance({lat: WPlat, lon: WPlon});
-    dc6b.message.write("courseWP: " ~ sprintf("%.2f", courseWP));
-    dc6b.message.write("distanceWP: " ~ sprintf("%.2f", distanceWP));
+    # dc6b.message.write("courseWP: " ~ sprintf("%.2f", courseWP));
+    # dc6b.message.write("distanceWP: " ~ sprintf("%.2f", distanceWP));
 
     (courseRWY, distanceRWY) = courseAndDistance(positionRWY);
-    dc6b.message.write("courseRWY: " ~ sprintf("%.2f", courseRWY));
-    dc6b.message.write("distanceRWY: " ~ sprintf("%.2f", distanceRWY));
+    # dc6b.message.write("courseRWY: " ~ sprintf("%.2f", courseRWY));
+    # dc6b.message.write("distanceRWY: " ~ sprintf("%.2f", distanceRWY));
 
     targetAltitude = getprop("autopilot/route-manager/route/wp["~currentWPIndex~"]/altitude-ft");
     currentAltitude = getprop("position/altitude-ft");
     verticalSpeed = targetAltitude - currentAltitude;
-    if (verticalSpeed > 1500) verticalSpeed = 1500;
-    if (verticalSpeed < -2000) verticalSpeed = -2000;
+    if (verticalSpeed > climbFPM) verticalSpeed = climbFPM;
+    if (verticalSpeed < descentFPM) verticalSpeed = descentFPM;
     currentSpeed = getprop("velocities/airspeed-kt");
-  }
 
-  if (currentWPIndex != lastWPIndex) {
     setprop("junkes/current-wp", getprop("autopilot/route-manager/route/wp["~currentWPIndex~"]/id"));
     setprop("junkes/current-wp-index", currentWPIndex);
     setprop("junkes/current-wp-lat", WPlat);
@@ -87,14 +89,21 @@ var main = func {
     setprop("junkes/current-wp-course", courseWP);
     setprop("junkes/rwy-dist", distanceRWY);
     setprop("junkes/rwy-course", courseRWY);
+
+    dc6b.message.write("Ground Speed: " ~ getprop("velocities/groundspeed-kt"));
+    dc6b.message.write("Minutes to RWY: " ~ (distanceRWY / (getprop("velocities/groundspeed-kt") or 1) * 60));
+    dc6b.message.write("Seconds to RWY: " ~ (distanceRWY / (getprop("velocities/groundspeed-kt") or 1) * 60 * 60));
+  }
+
+  if (currentWPIndex != lastWPIndex) {
     if (currentWPIndex == (lastWPIndex - 2)) {
-      setprop("autopilot/settings/target-speed-kt", 150);
+      setprop("autopilot/settings/target-speed-kt", descentSpeed);
       setprop("controls/flight/flaps", 0.5);
     } elsif (currentWPIndex == (lastWPIndex - 1)) {
-      setprop("autopilot/settings/target-speed-kt", 120);
+      setprop("autopilot/settings/target-speed-kt", appSpeed);
       setprop("controls/flight/flaps", 1);
     } else {
-      setprop("autopilot/settings/target-speed-kt", 220);
+      setprop("autopilot/settings/target-speed-kt", cruiseSpeed);
       setprop("controls/flight/flaps", 0);
     }
     if (currentSpeed > 100) {
@@ -107,6 +116,20 @@ var main = func {
     }
     if (distanceWP < 1) {
       currentWPIndex += 1;
+    }
+  } else {
+    if (courseRWY > headingRWY * 1.01) {
+      setprop("autopilot/settings/true-heading-deg", courseRWY - (courseRWY - headingRWY));
+    } elsif (courseRWY < headingRWY * 0.99) {
+      setprop("autopilot/settings/true-heading-deg", courseRWY + (headingRWY - courseRWY));
+    } else {
+      setprop("autopilot/settings/true-heading-deg", headingRWY);
+    }
+
+    if (currentSpeed < 100) {
+      setprop("autopilot/locks/heading", "");
+      setprop("autopilot/locks/altitude", "");
+      setprop("autopilot/locks/speed", "");
     }
   }
 
@@ -151,7 +174,7 @@ main();
 #       print('difHeading: ', difHeading);
 #     }
 
-#     # dc6b.message.write("Route Manager - Last Waypoint: " ~ getprop("autopilot/route-manager/route/wp["~lastWPIndex~"]/id"));
+    # dc6b.message.write("Route Manager - Last Waypoint: " ~ getprop("autopilot/route-manager/route/wp["~lastWPIndex~"]/id"));
 #     var difAltitude = getprop("position/altitude-ft") - getprop("autopilot/route-manager/destination/field-elevation-ft");
 #     var fpm = (difAltitude / (getprop("autopilot/route-manager/ete"))) * 60;
 #     if (n.getValue() <= 5.5 and agl > 10) {
@@ -159,7 +182,7 @@ main();
 #       setprop("autopilot/locks/altitude", "vertical-speed-hold");
 #     }
 #     if (difAltitude > 50) {
-#       setprop("autopilot/settings/target-speed-kt", 120);
+#       setprop("autopilot/settings/target-speed-kt", appSpeed);
 #       setprop("controls/flight/flaps", 1);
 #     }
 #     if (agl < 10 and agl > 1) {
@@ -183,7 +206,7 @@ main();
 #       setprop("autopilot/route-manager/current-wp", currentWPIndex += 1);
 #     }
 #     if (currentWPIndex == 1 and getprop("velocities/airspeed-kt") > 100) {
-#       setprop("autopilot/settings/vertical-speed-fpm", 1500);
+#       setprop("autopilot/settings/vertical-speed-fpm", climbFPM);
 #       setprop("autopilot/locks/altitude", "vertical-speed-hold");
 #     }
 #     if (getprop("autopilot/route-manager/wp/eta-seconds") != nil and getprop("autopilot/route-manager/wp/eta-seconds") < (getprop("velocities/airspeed-kt") / 10)) {
@@ -191,9 +214,9 @@ main();
 #       setprop("autopilot/locks/altitude", "altitude-hold");
 #     }
 #     if (currentWPIndex == (lastWPIndex -2)) {
-#       setprop("autopilot/settings/target-speed-kt", 150);
+#       setprop("autopilot/settings/target-speed-kt", descentSpeed);
 #       setprop("controls/flight/flaps", 0.7);
 #     }
-#     # dc6b.message.write("Route Manager - Waypoint: " ~ getprop("autopilot/route-manager/route/wp["~currentWPIndex~"]/id"));
+    # dc6b.message.write("Route Manager - Waypoint: " ~ getprop("autopilot/route-manager/route/wp["~currentWPIndex~"]/id"));
 #   }
 # }, 0, 0);

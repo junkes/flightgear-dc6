@@ -1,5 +1,5 @@
 var display = screen.display.new(20, 10);
-display.setcolor(1, 0, 0);
+display.setcolor(1, 1, 1);
 display.setfont("SANS_12B", 12);
 display.interval = 0;
 display.format = "%.4g";
@@ -27,6 +27,7 @@ var showStats = func {
   display.add("junkes/current-wp-course");
   display.add("junkes/rwy-dist");
   display.add("junkes/rwy-course");
+  display.add("junkes/time-to-rwy");
   stats = 1;
 }
 
